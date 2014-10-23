@@ -1,0 +1,79 @@
+sudo docker --version
+
+sudo docker images
+
+sudo docker pull ubuntu:14.04
+sudo docker pull node:0.10.32 # separate window?
+
+sudo docker images
+sudo docker images -a
+
+sudo docker run ubuntu:14.04 echo hello world
+
+sudo docker ps
+sudo docker ps -a
+
+sudo docker run -d ubuntu:14.04 /bin/sh -c "while true; do date; echo Hello world; sleep 1; done"
+sudo docker ps
+sudo docker logs <c id>
+sudo docker inspect <c id>
+sudo docker stop <c id>
+sudo docker logs <c id> # show last date
+sudo docker start <c id>
+sudo docker stop <c id>
+
+cd /vagrant/memcache
+sudo docker build -t ndemoor/memcache .
+sudo docker images
+sudo docker build -t ndemoor/memcache . # caching kicks in
+
+sudo docker run -p 11211:11211 -d ndemoor/memcache
+telnet localhost 11211
+stats
+quit
+
+sudo docker inspect <> # get IPaddress
+telnet <IPaddress> 11211
+quit
+
+cd ../node-app
+sudo docker build -t ndemoor/oa-node-app .
+sudo docker images
+
+mkdir /tmp/node-app
+
+sudo docker run --name mc -d ndemoor/memcache 
+telnet localhost 11211
+sudo docker run \
+-p 3000:3000 \
+-v /tmp/node-app:/var/data:rw \
+--link mc:mc \
+-d \
+ndemoor/oa-node-app
+
+sudo docker ps
+
+curl localhost:3000
+curl -X POST -d 'value=bla' localhost:3000/myval
+curl localhost:3000/myval
+
+sudo docker diff <node app id>
+sudo docker exec -i -t <node app id> /bin/bash
+ps aux
+touch /tmp/test
+sudo docker diff <node app id>
+
+
+sudo docker push ndemoor/memcache
+
+
+================================
+
+curl -i -X POST -H 'Content-Type: application/json' http://100.0.10.11:8080/v2/apps -d@memcache/marathon.json
+
+telnet 100.0.10.101 11211
+
+curl -i -X POST -H 'Content-Type: application/json' http://100.0.10.11:8080/v2/apps -d@node-app/marathon.json
+
+curl 100.0.10.101:10100
+
