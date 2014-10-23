@@ -4,6 +4,7 @@
   "description": "Sample node app",
   "dependencies": {
     "express": "*",
+    "body-parser": "*",
     "memcached": "*"
   },
   "scripts": {

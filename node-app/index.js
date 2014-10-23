@@ -1,4 +1,5 @@
 var express = require('express'),
+    bodyParser = require('body-parser'),
     Memcached = require('memcached'),
     fs = require('fs');
 
@@ -10,7 +11,7 @@ var mc = new Memcached(process.env.MEMCACHE || process.env.MC_PORT.replace('tcp:
 
 // App
 var app = express();
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({}));
 
 // Root path
 app.get('/', function (req, res) {
