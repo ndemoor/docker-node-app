@@ -41,6 +41,10 @@ app.get('/myval', function (req, res) {
   });
 });
 
+app.get('/crashme', function (req, res) {
+  process.exit(1);
+});
+
 app.listen(port);
 
 console.log('Running in ' + env + ' on http://localhost:' + port);
