@@ -1,0 +1,26 @@
+{
+  "id": "node-app",
+  "container": {
+    "docker": {
+      "image": "ndemoor/oa-node-app"
+    },
+    "type": "DOCKER"
+  },
+  "cpus": 0.2,
+  "mem": 128,
+  "instances": 2,
+  "ports": [ "10100" ],
+  "env": {
+    "MEMCACHE": "172.17.42.1:11211"
+  },
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/",
+      "gracePeriodSeconds": 5,
+      "intervalSeconds": 20,
+      "maxConsecutiveFailures": 3
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "memcache",
+  "container": {
+    "docker": {
+        "image": "ndemoor/memcache",
+        "network": "BRIDGE",
+        "portMappings": [
+          { "containerPort": 11211, "hostPort": 0, "servicePort": 11211, "protocol": "tcp"}
+        ]
+    },
+    "type": "DOCKER"
+  },
+  "cpus": 0.25,
+  "mem": 32,
+  "instances": 1,
+  "env": {}
+}
